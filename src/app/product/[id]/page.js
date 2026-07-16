@@ -68,7 +68,7 @@ export default async function ProductDetail({ params }) {
                 src={product.image}
                 alt={product.title}
                 className="product-detail-image"
-                loading="lazy"
+                loading="lazy"   
               />
             </div>
           </Col>
