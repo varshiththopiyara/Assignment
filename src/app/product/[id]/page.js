@@ -2,23 +2,19 @@ import { Container, Row, Col, Card, Badge, Button } from "react-bootstrap";
 import Link from "next/link";
 
 async function getProduct(id) {
-  try {
-    const response = await fetch(`https://fakestoreapi.com/products/${id}`, {
-      cache: "no-store",
-    });
+  const response = await fetch("https://fakestoreapi.com/products", {
+    cache: "no-store",
+  });
 
-    console.log("Status:", response.status);
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Fetch Error:", error);
-    throw error;
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
   }
+
+  const products = await response.json();
+
+  return products.find((product) => product.id === Number(id));
 }
+
 export default async function ProductDetail({ params }) {
   const { id } = await params;
   const product = await getProduct(id);
