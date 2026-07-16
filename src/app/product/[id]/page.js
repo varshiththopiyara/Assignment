@@ -18,19 +18,22 @@ export default async function ProductDetail({ params }) {
   const { id } = await params;
   const product = await getProduct(id);
 
-  const renderStars = (rate) => {
-    const fullStars = Math.floor(rate);
-    const hasHalfStar = rate % 1 >= 0.5;
-    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-    return (
-      <span className="rating-stars" style={{ fontSize: 'clamp(1rem, 2.5vw, 1.2rem)' }}>
-        {'★'.repeat(fullStars)}
-        {hasHalfStar && '☆'}
-        {'☆'.repeat(emptyStars)}
-      </span>
-    );
-  };
+ const renderStars = (rate) => {
+  const fullStars = Math.floor(rate);
+  const hasHalfStar = rate % 1 >= 0.5;
+  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
+  return (
+    <span
+      className="rating-stars"
+      style={{ color: "#ffc107" }}
+    >
+      {'★'.repeat(fullStars)}
+      {hasHalfStar && '☆'}
+      {'☆'.repeat(emptyStars)}
+    </span>
+  );
+};
   if (!product) {
     return (
       <Container className="py-4 py-md-5 text-center">
@@ -99,7 +102,7 @@ export default async function ProductDetail({ params }) {
             
             {product.rating && (
               <div className="d-flex align-items-center gap-2 gap-md-3 mb-4">
-                <div style={{ fontSize: 'clamp(1.2rem, 3vw, 1.5rem)' }}>{renderStars(product.rating.rate)}</div>
+                <div style={{ fontSize: 'clamp(1.2rem, 3vw, 1.5rem)',color:'gold' }}>{renderStars(product.rating.rate)}</div>
                 <span style={{ 
                   color: 'rgba(255,255,255,0.3)', 
                   fontFamily: 'Lato, sans-serif',

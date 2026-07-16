@@ -7,8 +7,6 @@ import {
   Col,
   Card,
   Form,
-  Spinner,
-  Badge,
   Pagination,
 } from "react-bootstrap";
 import Link from "next/link";
@@ -24,7 +22,6 @@ export default function Home() {
   const [itemsPerPage] = useState(8);
   const [totalPages, setTotalPages] = useState(1);
 
-  // Fetch products
   useEffect(() => {
     setLoading(true);
     fetch("https://fakestoreapi.com/products")
@@ -41,7 +38,6 @@ export default function Home() {
       });
   }, [itemsPerPage]);
 
-  // Filter products
   useEffect(() => {
     if (!searchTerm.trim()) {
       setFilteredProducts(allProducts);
@@ -141,7 +137,6 @@ export default function Home() {
 
   const currentItems = getCurrentPageItems();
 
-  // Show skeleton while loading or searching
   if (loading || isSearching) {
     return (
       <Container className="py-5">
@@ -173,7 +168,7 @@ export default function Home() {
       <div className="search-bar-container">
         <Form.Control
           type="text"
-          placeholder="🔍 Search products by name..."
+          placeholder=" Search products by name..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           size="lg"
@@ -184,11 +179,6 @@ export default function Home() {
             {filteredProducts.length} products found
           </small>
         )}
-      </div>
-
-      <div className="text-muted text-center mb-3">
-        Showing {currentItems.length} of {filteredProducts.length} products
-        {totalPages > 1 && ` • Page ${currentPage} of ${totalPages}`}
       </div>
 
       <Row xs={1} sm={2} md={3} lg={4} className="g-4">
@@ -214,25 +204,18 @@ export default function Home() {
                     />
                   </div>
                   <Card.Body>
-                    {/* Brand */}
                     <div className="product-brand">
                       {product.category.split(" ")[0] || "Brand"}
                     </div>
-
-                    {/* Product Title */}
                     <Card.Title className="product-title">
                       {product.title}
                     </Card.Title>
-
-                    {/* Category */}
                     <div className="product-category">{product.category}</div>
 
-                    {/* Price */}
                     <div className="product-price">
                       ${product.price.toFixed(2)}
                     </div>
 
-                    {/* Rating */}
                     {product.rating && (
                       <div className="product-rating">
                         <span>{renderStars(product.rating.rate)}</span>

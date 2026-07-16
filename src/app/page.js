@@ -16,14 +16,12 @@ export default function Home() {
   const [totalPages, setTotalPages] = useState(1);
   const searchInputRef = useRef(null);
 
-  // Exchange rate: 1 USD = 83 INR
   const USD_TO_INR = 83;
 
   const convertToINR = (usdPrice) => {
     return (usdPrice * USD_TO_INR).toFixed(2);
   };
 
-  // Fetch products
   useEffect(() => {
     setLoading(true);
     fetch('https://fakestoreapi.com/products')
@@ -40,7 +38,6 @@ export default function Home() {
       });
   }, [itemsPerPage]);
 
-  // Filter products with debounce
   useEffect(() => {
     if (!searchTerm || searchTerm.trim() === '') {
       setFilteredProducts(allProducts);
@@ -185,7 +182,6 @@ export default function Home() {
 
   const currentItems = getCurrentPageItems();
 
-  // Loading skeleton
   if (loading) {
     return (
       <Container className="py-3 py-md-4 py-lg-5">
@@ -221,7 +217,6 @@ export default function Home() {
         Click on any product to view details
       </p>
 
-      {/* BLACK SEARCH BAR */}
       <div className="search-wrapper">
         <div className="search-bar-container" style={{
           background: '#1a1a1a',
@@ -334,8 +329,6 @@ export default function Home() {
         fontWeight: 300,
         letterSpacing: '0.5px'
       }}>
-        Showing {currentItems.length} of {filteredProducts.length} products
-        {totalPages > 1 && ` • Page ${currentPage} of ${totalPages}`}
       </div>
 
       <Row xs={2} sm={2} md={3} lg={4} className="g-3 g-sm-4">
@@ -395,7 +388,7 @@ export default function Home() {
                       {product.category}
                     </div>
                     <div className="product-price">
-                      ₹{convertToINR(product.price)}
+                      ₹{(product.price).toFixed(2)}
                     </div>
                     {product.rating && (
                       <div className="product-rating">
