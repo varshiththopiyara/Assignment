@@ -146,7 +146,7 @@ export default function ProductDetail() {
             </div>
 
             <div className="product-detail-price mb-3">
-              ${product.price.toFixed(2)}
+              {product.price.toFixed(2)}
             </div>
 
             {product.rating && (
