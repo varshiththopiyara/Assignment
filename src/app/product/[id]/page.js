@@ -10,7 +10,7 @@ async function getProduct(id) {
     return response.json();
   } catch (error) {
     console.error('Error fetching product:', error);
-    return null;
+    throw error;
   }
 }
 
